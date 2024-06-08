@@ -1,0 +1,15 @@
+.cproject
+.project
+.mxproject
+.project
+.settings
+*.prefs
+
+*.ioc
+*.xml
+*.o
+
+Debug/*
+Release/*
+/Debug
+/Release
