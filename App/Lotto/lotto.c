@@ -18,8 +18,8 @@
 Lotto_t LOTTO_results;
 
 /* Private function declarations --------------------------------------------------------------------------------------------------------------*/
-static int LOTTO_generate_5_from_50(void);
-static int LOTTO_generate_2_from_12(void);
+static uint8_t LOTTO_generate_5_from_50(void);
+static uint8_t LOTTO_generate_2_from_12(void);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -30,34 +30,29 @@ void LOTTO_generate_numbers(void)
 	for (uint8_t i = 0; i < 5; i++)
 	{
 		LOTTO_results.lottoTab5from50[i] = LOTTO_generate_5_from_50();
-		for (uint8_t y = 0; y < i; y++)
-		{
-			if (LOTTO_results.lottoTab5from50[y] == LOTTO_results.lottoTab5from50[i])
-			{
-				i-=1;
-			}
-		}
+		printf("\n %d", LOTTO_results.lottoTab5from50[i]);
 	}
+	printf("\n");
 
 	for (uint8_t i = 0; i < 2; i++)
 	{
 		LOTTO_results.lottoTab2from12[i] = LOTTO_generate_2_from_12();
-		for (uint8_t y = 0; y < i; y++)
-		{
-			if (LOTTO_results.lottoTab2from12[y] == LOTTO_results.lottoTab2from12[i])
-			{
-				i-=1;
-			}
-		}
+
+		printf("\n %d", LOTTO_results.lottoTab2from12[i]);
 	}
+	printf("\n");
 }
 
-static int LOTTO_generate_5_from_50(void)
+static uint8_t LOTTO_generate_5_from_50(void)
 {
-	return ((PERIPHERALS_get_generated_random_value() % 49U) + 1U);
+	uint8_t random_value = (uint8_t)((PERIPHERALS_get_generated_random_value() % 49U) + 1U);
+
+	return random_value;
 }
 
-static int LOTTO_generate_2_from_12(void)
+static uint8_t LOTTO_generate_2_from_12(void)
 {
-	return ((PERIPHERALS_get_generated_random_value() % 11U) + 1U);
+	uint8_t random_value = (uint8_t)((PERIPHERALS_get_generated_random_value() % 11U) + 1U);
+
+	return random_value;
 }

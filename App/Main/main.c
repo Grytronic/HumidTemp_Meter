@@ -164,10 +164,14 @@ while(1)
 		}
 	}
 	execute_if_any_button_is_pressed();
+  }
+
+  return 0;
 }
-return 0;
-}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/* ---------------------------------------------------------------------------------------------------------------------------------------------- */
+
 ISR(TIMER1_OVF_vect)
 {
 	static uint8_t CountOfPeriods262ms = ZERO;
@@ -198,8 +202,6 @@ ISR(USART_RX_vect)
 	GPS_recv_char(UDR0); //register it as callback function
 }
 
-
-
 ISR(PCINT1_vect)
 {
 	if (DIO_check_if_Button_MENU_is_pressed())
@@ -212,10 +214,6 @@ ISR(PCINT1_vect)
 		Button2_CHANGEpressedFLAG = FLAG_IS_SET;
 	}
 }
-
-
-// ----------------------------------------------------------------------------------
-
 
 void execute_if_any_button_is_pressed(void)
 {
@@ -320,8 +318,6 @@ void execute_if_any_button_is_pressed(void)
 	}
 }
 
-
-//---------MAIN:-----------------------------------------------Single Responsibility Principle refactoring:
 void choose_default_profil_and_set_active_mode(void)
 {
 	/* settings related to choosen work profil */
@@ -445,61 +441,61 @@ void init_profiles_with_default_values(ProfilCollection_t* pSProfilCollection)
 	/* PROFIL CAR INIT*/
 	pSProfilCollection->pProfilCar->config_humidityOffset 	  	       = CAR_HUMIDITY_OFFSET;
 	pSProfilCollection->pProfilCar->config_tempOffset 		  		   = CAR_TEMP_OFFSET;
-	pSProfilCollection->pProfilCar->config_countOftempMeanValSamples    = COUNT_OF_SAMPLES_FOR_MEANVALUE_CALCULATION;
+	pSProfilCollection->pProfilCar->config_countOftempMeanValSamples   = COUNT_OF_SAMPLES_FOR_MEANVALUE_CALCULATION;
 	pSProfilCollection->pProfilCar->config_LEDdispBrightness 		   = 0;
 	pSProfilCollection->pProfilCar->config_OLEDbrightness 			   = 0xFF;
-	pSProfilCollection->pProfilCar->config_informLimitLoHighOverflow    = 0;
+	pSProfilCollection->pProfilCar->config_informLimitLoHighOverflow   = 0;
 	pSProfilCollection->pProfilCar->config_humidityToLowValue 		   = 0;
 	pSProfilCollection->pProfilCar->config_humidityToHighValue 		   = 75;
 	pSProfilCollection->pProfilCar->config_alarmBeeperON 			   = 0;
 	pSProfilCollection->pProfilCar->config_alarmTempValue 	           = 0;
 	pSProfilCollection->pProfilCar->config_alarmHumidValue 		       = 0;
-	pSProfilCollection->pProfilCar->config_alarmDevTempDifference       = 9.0F;
-	pSProfilCollection->pProfilCar->config_LEDdisplayTempAlarmValue     = 0;
-	pSProfilCollection->pProfilCar->config_LEDdisplayDevPointValue      = 0;
-	pSProfilCollection->pProfilCar->config_LEDdisplayGPSdata            = 1;
-	pSProfilCollection->pProfilCar->config_LEDdisplayTime           	   = 0;
-	pSProfilCollection->pProfilCar->config_LEDdisplayStripesForDebug    = 1;
+	pSProfilCollection->pProfilCar->config_alarmDevTempDifference      = 9.0F;
+	pSProfilCollection->pProfilCar->config_LEDdisplayTempAlarmValue    = 0;
+	pSProfilCollection->pProfilCar->config_LEDdisplayDevPointValue     = 0;
+	pSProfilCollection->pProfilCar->config_LEDdisplayGPSdata           = 1;
+	pSProfilCollection->pProfilCar->config_LEDdisplayTime              = 0;
+	pSProfilCollection->pProfilCar->config_LEDdisplayStripesForDebug   = 1;
 	pSProfilCollection->pProfilCar->config_LEDdisplayADCvalue    	   = 0;
 
 	/* PROFIL HOME INIT*/
 	pSProfilCollection->pProfilHome->config_humidityOffset 			   = HOME_HUMIDITY_OFFSET;
 	pSProfilCollection->pProfilHome->config_tempOffset 				   = HOME_TEMP_OFFSET;
-	pSProfilCollection->pProfilHome->config_countOftempMeanValSamples   = COUNT_OF_SAMPLES_FOR_MEANVALUE_CALCULATION;
+	pSProfilCollection->pProfilHome->config_countOftempMeanValSamples  = COUNT_OF_SAMPLES_FOR_MEANVALUE_CALCULATION;
 	pSProfilCollection->pProfilHome->config_LEDdispBrightness 		   = 0;
 	pSProfilCollection->pProfilHome->config_OLEDbrightness 			   = 0x50;//0x4F;
-	pSProfilCollection->pProfilHome->config_informLimitLoHighOverflow   = 1;
+	pSProfilCollection->pProfilHome->config_informLimitLoHighOverflow  = 1;
 	pSProfilCollection->pProfilHome->config_humidityToLowValue 		   = 40;
-	pSProfilCollection->pProfilHome->config_humidityToHighValue 		   = 70;
+	pSProfilCollection->pProfilHome->config_humidityToHighValue 	   = 70;
 	pSProfilCollection->pProfilHome->config_alarmBeeperON 			   = 0;
 	pSProfilCollection->pProfilHome->config_alarmTempValue 	           = 0;
-	pSProfilCollection->pProfilHome->config_alarmHumidValue 		       = 0;
-	pSProfilCollection->pProfilHome->config_alarmDevTempDifference      = 9.0F;
-	pSProfilCollection->pProfilHome->config_LEDdisplayTempAlarmValue    = 0;
-	pSProfilCollection->pProfilHome->config_LEDdisplayDevPointValue     = 1;
-	pSProfilCollection->pProfilHome->config_LEDdisplayGPSdata           = 0;
+	pSProfilCollection->pProfilHome->config_alarmHumidValue 		   = 0;
+	pSProfilCollection->pProfilHome->config_alarmDevTempDifference     = 9.0F;
+	pSProfilCollection->pProfilHome->config_LEDdisplayTempAlarmValue   = 0;
+	pSProfilCollection->pProfilHome->config_LEDdisplayDevPointValue    = 1;
+	pSProfilCollection->pProfilHome->config_LEDdisplayGPSdata          = 0;
 	pSProfilCollection->pProfilHome->config_LEDdisplayTime       	   = 0;
-	pSProfilCollection->pProfilHome->config_LEDdisplayStripesForDebug   = 1;
-	pSProfilCollection->pProfilHome->config_LEDdisplayADCvalue          = 0;
+	pSProfilCollection->pProfilHome->config_LEDdisplayStripesForDebug  = 1;
+	pSProfilCollection->pProfilHome->config_LEDdisplayADCvalue         = 0;
 
 	/* PROFIL BATHROOM INIT*/
 	pSProfilCollection->pProfilBadroom->config_humidityOffset 		       = BADROOM_HUMIDITY_OFFSET;
 	pSProfilCollection->pProfilBadroom->config_tempOffset 			       = BADROOM_TEMP_OFFSET;
-	pSProfilCollection->pProfilBadroom->config_countOftempMeanValSamples    = COUNT_OF_SAMPLES_FOR_MEANVALUE_CALCULATION;
+	pSProfilCollection->pProfilBadroom->config_countOftempMeanValSamples   = COUNT_OF_SAMPLES_FOR_MEANVALUE_CALCULATION;
 	pSProfilCollection->pProfilBadroom->config_LEDdispBrightness 		   = 0;   //min 0
 	pSProfilCollection->pProfilBadroom->config_OLEDbrightness 		       = 0x4F;//0x4F;
-	pSProfilCollection->pProfilBadroom->config_informLimitLoHighOverflow    = 0;
+	pSProfilCollection->pProfilBadroom->config_informLimitLoHighOverflow   = 0;
 	pSProfilCollection->pProfilBadroom->config_humidityToLowValue 		   = 40;
 	pSProfilCollection->pProfilBadroom->config_humidityToHighValue 		   = 70;
 	pSProfilCollection->pProfilBadroom->config_alarmBeeperON 			   = 0;  // 0 -silent alarm - only LED
 	pSProfilCollection->pProfilBadroom->config_alarmTempValue 	           = 22;
 	pSProfilCollection->pProfilBadroom->config_alarmHumidValue 		       = 65;
-	pSProfilCollection->pProfilBadroom->config_alarmDevTempDifference       = 9.0F;
-	pSProfilCollection->pProfilBadroom->config_LEDdisplayTempAlarmValue     = 0;
-	pSProfilCollection->pProfilBadroom->config_LEDdisplayDevPointValue      = 1;
-	pSProfilCollection->pProfilBadroom->config_LEDdisplayGPSdata            = 0;
-	pSProfilCollection->pProfilBadroom->config_LEDdisplayTime               = 0;
-	pSProfilCollection->pProfilBadroom->config_LEDdisplayStripesForDebug    = 1;
-	pSProfilCollection->pProfilBadroom->config_LEDdisplayADCvalue           = 0;
+	pSProfilCollection->pProfilBadroom->config_alarmDevTempDifference      = 9.0F;
+	pSProfilCollection->pProfilBadroom->config_LEDdisplayTempAlarmValue    = 0;
+	pSProfilCollection->pProfilBadroom->config_LEDdisplayDevPointValue     = 1;
+	pSProfilCollection->pProfilBadroom->config_LEDdisplayGPSdata           = 0;
+	pSProfilCollection->pProfilBadroom->config_LEDdisplayTime              = 0;
+	pSProfilCollection->pProfilBadroom->config_LEDdisplayStripesForDebug   = 1;
+	pSProfilCollection->pProfilBadroom->config_LEDdisplayADCvalue          = 0;
 }
 

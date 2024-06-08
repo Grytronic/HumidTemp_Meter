@@ -10,7 +10,6 @@
 #define M328P_H_
 
 /* External includes --------------------------------------------------------------------------------------------------------------------------*/ 
-#include <util/atomic.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h> 						// dla wyswietlania stalych z pamieci FLASH

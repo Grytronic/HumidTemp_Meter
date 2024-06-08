@@ -51,7 +51,6 @@ void TWI_set_bitrate(uint16_t bitrateKHz) {
 
 
 static void TWI_start(void) {
-	ATOMIC_BLOCK(ATOMIC_FORCEON)
 	{
 		TWCR = (1<<TWINT)|(1<<TWEN)|(1<<TWSTA);
 		while (!(TWCR&(1<<TWINT)));
@@ -60,7 +59,6 @@ static void TWI_start(void) {
 
 
 static void TWI_stop(void) {
-	ATOMIC_BLOCK(ATOMIC_FORCEON)
 	{
 		TWCR = (1<<TWINT)|(1<<TWEN)|(1<<TWSTO);
 		while (!(TWCR&(1<<TWSTO)));
@@ -70,7 +68,6 @@ static void TWI_stop(void) {
 
 
 static void TWI_write(uint8_t bajt) {
-	ATOMIC_BLOCK(ATOMIC_FORCEON)
 	{
 		TWDR = bajt;
 		TWCR = (1<<TWINT)|(1<<TWEN);
@@ -80,7 +77,6 @@ static void TWI_write(uint8_t bajt) {
 
 
 static uint8_t TWI_read(uint8_t ack) {
-	ATOMIC_BLOCK(ATOMIC_FORCEON)
 	{
 		TWCR = (1<<TWINT)|(ack<<TWEA)|(1<<TWEN);
 		while (!(TWCR & (1<<TWINT)));

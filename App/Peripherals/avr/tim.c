@@ -58,5 +58,6 @@ void TIM0_wait_for_high_level(uint8_t timeout_us)
 int TIM1_get_generated_random_value(void)
 {
 	srand(TCNT1);
+
 	return rand();
 }
