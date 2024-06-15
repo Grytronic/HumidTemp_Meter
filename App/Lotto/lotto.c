@@ -9,7 +9,10 @@
 #include "lotto.h"
 #include "../Peripherals/avr/peripherals.h"
 
-/* Private defines ----------------------------------------------------------------------------------------------------------------------------*/ 
+/* Private defines ----------------------------------------------------------------------------------------------------------------------------*/
+#define LOTTO_5FROM50_OUT_RANGE 51U
+#define LOTTO_2FROM12_OUT_RANGE 13U
+
 /* Private types ------------------------------------------------------------------------------------------------------------------------------*/ 
 /* Private consts -----------------------------------------------------------------------------------------------------------------------------*/ 
 /* Private variables --------------------------------------------------------------------------------------------------------------------------*/
@@ -30,29 +33,24 @@ void LOTTO_generate_numbers(void)
 	for (uint8_t i = 0; i < 5; i++)
 	{
 		LOTTO_results.lottoTab5from50[i] = LOTTO_generate_5_from_50();
-		printf("\n %d", LOTTO_results.lottoTab5from50[i]);
 	}
-	printf("\n");
 
 	for (uint8_t i = 0; i < 2; i++)
 	{
 		LOTTO_results.lottoTab2from12[i] = LOTTO_generate_2_from_12();
-
-		printf("\n %d", LOTTO_results.lottoTab2from12[i]);
 	}
-	printf("\n");
 }
 
 static uint8_t LOTTO_generate_5_from_50(void)
 {
-	uint8_t random_value = (uint8_t)((PERIPHERALS_get_generated_random_value() % 51U));
+	uint8_t random_value = (uint8_t)((PERIPHERALS_get_generated_random_value() % LOTTO_5FROM50_OUT_RANGE));
 
 	return random_value;
 }
 
 static uint8_t LOTTO_generate_2_from_12(void)
 {
-	uint8_t random_value = (uint8_t)((PERIPHERALS_get_generated_random_value() % 13U));
+	uint8_t random_value = (uint8_t)((PERIPHERALS_get_generated_random_value() % LOTTO_2FROM12_OUT_RANGE));
 
 	return random_value;
 }

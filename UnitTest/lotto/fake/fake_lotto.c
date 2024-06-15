@@ -7,7 +7,8 @@
 #include "fake_lotto.h"
 
 
-const int PeripheralsFakeDefaultRandomReturnValue = 3;
+const int PeripheralsFakeDefaultRandomReturnValue = 178U;
+
 
 int PERIPHERALS_get_generated_random_value(void)
 {

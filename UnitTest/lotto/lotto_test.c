@@ -3,6 +3,11 @@
 #include "fake/fake_lotto.h"
 #include "../App/Lotto/lotto.h"
 
+#define LOTTO_5FROM50_OUT_RANGE 51U
+#define LOTTO_2FROM12_OUT_RANGE 13U
+
+Lotto_t test_LOTTO_results;
+
 TEST_GROUP(lotto);
 
 TEST_SETUP(lotto)
@@ -15,32 +20,48 @@ TEST_TEAR_DOWN(lotto)
     /* Cleanup after every test */
 }
 
-TEST(lotto, WhenNoGenerationNumbersTab2from12EqualZeros)
+TEST(lotto, WhenNoGenerationNumbersTab2from12initialisedWithZeros)
 {
-	uint8_t clearedArrayWith5elements[2] = {0, 0};
+	for (uint8_t i = 0; i < 2; i++)
+	{
+		test_LOTTO_results.lottoTab2from12[i] = 0U;
+	}
 
-    TEST_ASSERT_EQUAL_UINT8_ARRAY(clearedArrayWith5elements, LOTTO_results.lottoTab2from12, 2);
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(test_LOTTO_results.lottoTab2from12, LOTTO_results.lottoTab2from12, 2);
 }
 
-TEST(lotto, WhenNoGenerationNumbersTab5from50EqualZeros)
+TEST(lotto, WhenNoGenerationNumbersTab5from50initialisedWithZeros)
 {
-	uint8_t clearedArrayWith5elements[5] = {0, 0, 0, 0, 0};
+	for (uint8_t i = 0; i < 5; i++)
+	{
+		test_LOTTO_results.lottoTab5from50[i] = 0U;
+	}
 
-    TEST_ASSERT_EQUAL_UINT8_ARRAY(clearedArrayWith5elements, LOTTO_results.lottoTab5from50, 5);
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(test_LOTTO_results.lottoTab5from50, LOTTO_results.lottoTab5from50, 5);
 }
 
-TEST(lotto, WhenGenerateNumbersBufforsAreFilledOutWithRandomValues)
+TEST(lotto, WhenGenerate5of50NumbersBufforsAreFilledOutWithRandomValues)
 {
 	LOTTO_generate_numbers();
 
-	uint8_t clearedArrayWith5elements[5] = {0, 0, 0, 0, 0};
 	for (uint8_t i = 0; i < 5; i++)
 	{
-		clearedArrayWith5elements[i] = PeripheralsFakeDefaultRandomReturnValue;
+		test_LOTTO_results.lottoTab5from50[i] = (PeripheralsFakeDefaultRandomReturnValue % LOTTO_5FROM50_OUT_RANGE);
 	}
 
-    TEST_ASSERT_EQUAL_UINT8_ARRAY(clearedArrayWith5elements, LOTTO_results.lottoTab5from50, 5);
-	// TEST_ASSERT_EQUAL(5, 5);
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(test_LOTTO_results.lottoTab5from50, LOTTO_results.lottoTab5from50, 5);
+}
+
+TEST(lotto, WhenGenerate2of12NumbersBufforsAreFilledOutWithRandomValues)
+{
+	LOTTO_generate_numbers();
+
+	for (uint8_t i = 0; i < 2; i++)
+	{
+		test_LOTTO_results.lottoTab2from12[i] = (PeripheralsFakeDefaultRandomReturnValue % LOTTO_2FROM12_OUT_RANGE);
+	}
+
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(test_LOTTO_results.lottoTab2from12, LOTTO_results.lottoTab2from12, 2);
 }
 
 TEST(lotto, NextTest)
