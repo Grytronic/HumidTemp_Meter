@@ -1,0 +1,6 @@
+C:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/out/CMakeFiles/lotto_test.dir
+C:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/out/CMakeFiles/edit_cache.dir
+C:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/out/CMakeFiles/rebuild_cache.dir
+C:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/out/unity/CMakeFiles/unity.dir
+C:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/out/unity/CMakeFiles/edit_cache.dir
+C:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/out/unity/CMakeFiles/rebuild_cache.dir
