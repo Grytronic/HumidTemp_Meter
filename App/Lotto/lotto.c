@@ -45,14 +45,14 @@ void LOTTO_generate_numbers(void)
 
 static uint8_t LOTTO_generate_5_from_50(void)
 {
-	uint8_t random_value = (uint8_t)((PERIPHERALS_get_generated_random_value() % 49U) + 1U);
+	uint8_t random_value = (uint8_t)((PERIPHERALS_get_generated_random_value() % 51U));
 
 	return random_value;
 }
 
 static uint8_t LOTTO_generate_2_from_12(void)
 {
-	uint8_t random_value = (uint8_t)((PERIPHERALS_get_generated_random_value() % 11U) + 1U);
+	uint8_t random_value = (uint8_t)((PERIPHERALS_get_generated_random_value() % 13U));
 
 	return random_value;
 }
