@@ -3,31 +3,64 @@
 #include "fake/fake_lotto.h"
 #include "../App/Lotto/lotto.h"
 
-#define LOTTO_5FROM50_OUT_RANGE 51U
-#define LOTTO_2FROM12_OUT_RANGE 13U
 
-Lotto_t test_LOTTO_results;
+Lotto_t testLOTTOresults;
 
 
-
-void update_test_LOTTO_values_to_last_generated(void)
+/*
+void update_5from50_testLOTTOresults_to_last_generated_value(void)
 {
 	for (uint8_t i = 0; i < 5; i++)
 	{
-		test_LOTTO_results.lottoTab5from50[i] = PERIPHERALS_get_generated_random_value();
-	}
-
-	for (uint8_t i = 0; i < 2; i++)
-	{
-		test_LOTTO_results.lottoTab2from12[i] = PERIPHERALS_get_generated_random_value();
+		testLOTTOresults.lottoTab5from50[i] = PERIPHERALS_get_generated_random_value();
 	}
 }
 
-void set_generated_values_and_update_test_LOTTO_results(int val)
+void update_2from12_testLOTTOresults_to_last_generated_value(void)
+{
+	for (uint8_t i = 0; i < 2; i++)
+	{
+		testLOTTOresults.lottoTab2from12[i] = PERIPHERALS_get_generated_random_value();
+	}
+}
+*/
+
+void update_5from50_testLOTTOresults_with_expected_value(uint8_t val)
+{
+	for (uint8_t i = 0; i < 5; i++)
+	{
+		testLOTTOresults.lottoTab5from50[i] = val;
+	}
+}
+
+void update_2from12_testLOTTOresults_with_expected_value(uint8_t val)
+{
+	for (uint8_t i = 0; i < 2; i++)
+	{
+		testLOTTOresults.lottoTab2from12[i] = val;
+	}
+}
+
+void set_5from50_testLOTTOresults_value(int val)
+{
+	for (uint8_t i = 0; i < 5; i++)
+	{
+		testLOTTOresults.lottoTab5from50[i] = val;
+	}
+}
+
+void set_2from12_testLOTTOresults_value(int val)
+{
+	for (uint8_t i = 0; i < 2; i++)
+	{
+		testLOTTOresults.lottoTab2from12[i] = val;
+	}
+}
+
+void set_generated_values_and_generate_LOTTO_numbers(int val)
 {
 	PERIPHERALS_set_value_for_generated_random_value(val);
 	LOTTO_generate_numbers();
-	update_test_LOTTO_values_to_last_generated();
 }
 
 
@@ -36,6 +69,7 @@ TEST_GROUP(lotto);
 TEST_SETUP(lotto)
 {
     /* Init before every test */
+	PERIPHERALS_reset_start_value_for_generated_random_value();
 }
 
 TEST_TEAR_DOWN(lotto)
@@ -43,42 +77,105 @@ TEST_TEAR_DOWN(lotto)
     /* Cleanup after every test */
 }
 
-TEST(lotto, WhenNoGenerationNumbersTab2from12initialisedWithZeros)
-{
-	set_generated_values_and_update_test_LOTTO_results(0);
-
-    TEST_ASSERT_EQUAL_UINT8_ARRAY(test_LOTTO_results.lottoTab2from12, LOTTO_results.lottoTab2from12, 2);
-}
 
 TEST(lotto, WhenNoGenerationNumbersTab5from50initialisedWithZeros)
 {
-	set_generated_values_and_update_test_LOTTO_results(0);
+	uint8_t expectedLottoTab5from50[] = {FAKE_PERIPHERALS_NUMBER_WHEN_RANDOM_VALUE_IS_0, 4, 5, 6, 7};
 
-    TEST_ASSERT_EQUAL_UINT8_ARRAY(test_LOTTO_results.lottoTab5from50, LOTTO_results.lottoTab5from50, 5);
+	set_generated_values_and_generate_LOTTO_numbers(0);
+
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(expectedLottoTab5from50, LOTTO_results.lottoTab5from50, 5);
 }
 
-TEST(lotto, WhenGenerate5of50NumbersBufforsAreFilledOutWithRandomValues)
+TEST(lotto, WhenGenerate5from50NumbersBufforsAreFilledOutWithInRangeValues)
 {
-	set_generated_values_and_update_test_LOTTO_results(34);
+	uint8_t expectedLottoTab5from50[] = {34, 35, 36, 37, 38};
 
-    TEST_ASSERT_EQUAL_UINT8_ARRAY(test_LOTTO_results.lottoTab5from50, LOTTO_results.lottoTab5from50, 5);
+	set_generated_values_and_generate_LOTTO_numbers(34);
+
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(expectedLottoTab5from50, LOTTO_results.lottoTab5from50, 5);
 }
 
-TEST(lotto, WhenGenerate2of12NumbersBufforsAreFilledOutWithRandomValues)
+TEST(lotto, WhenGenerate5from50NumbersBufforsAreFilledOutWithUpperLimitValue)
 {
-	set_generated_values_and_update_test_LOTTO_results(6);
+	uint8_t expectedLottoTab5from50[] = {50, FAKE_PERIPHERALS_NUMBER_WHEN_RANDOM_VALUE_IS_0, 4, 5, 6};
 
-    TEST_ASSERT_EQUAL_UINT8_ARRAY(test_LOTTO_results.lottoTab2from12, LOTTO_results.lottoTab2from12, 2);
+	set_generated_values_and_generate_LOTTO_numbers(50);
+	//update_5from50_testLOTTOresults_with_expected_value(50);
+
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(expectedLottoTab5from50, LOTTO_results.lottoTab5from50, 5);
 }
 
-TEST(lotto, NextTest)
+TEST(lotto, WhenGenerate5from50NumbersBufforsAreFilledOutWithPositiveOverrangeValues)
+{
+	uint8_t expectedLottoTab5from50[] = {FAKE_PERIPHERALS_NUMBER_WHEN_RANDOM_VALUE_IS_0, 4, 5, 6, 7};
+
+	set_generated_values_and_generate_LOTTO_numbers(51);
+	//update_5from50_testLOTTOresults_with_expected_value(FAKE_PERIPHERALS_NUMBER_WHEN_RANDOM_VALUE_IS_0);
+
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(expectedLottoTab5from50, LOTTO_results.lottoTab5from50, 5);
+}
+
+TEST(lotto, WhenGenerate5from50NumbersBufforsAreFilledOutWithOverrangeBigValues)
+{
+	uint8_t expectedLottoTab5from50[] = {FAKE_PERIPHERALS_NUMBER_WHEN_RANDOM_VALUE_IS_0, 4, 5, 6, 7};
+
+	set_generated_values_and_generate_LOTTO_numbers(127);
+	//update_5from50_testLOTTOresults_with_expected_value(127 % LOTTO_5FROM50_OUT_RANGE);
+
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(expectedLottoTab5from50, LOTTO_results.lottoTab5from50, 5);
+}
+
+TEST(lotto, WhenGenerate5from50NumbersBufforsAreFilledOutWithNegativeOverrangeValues)
+{
+	uint8_t expectedLottoTab5from50[] = {FAKE_PERIPHERALS_NUMBER_WHEN_RANDOM_VALUE_IS_0, 4, 5, 6, 7};
+
+	set_generated_values_and_generate_LOTTO_numbers(-128);
+	//update_5from50_testLOTTOresults_with_expected_value(FAKE_PERIPHERALS_NUMBER_WHEN_RANDOM_VALUE_IS_0);
+
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(expectedLottoTab5from50, LOTTO_results.lottoTab5from50, 5);
+}
+
+TEST(lotto, WhenGenerate5from50NumbersBufforsAreFilledOutWithTheSameValues)
+{
+	uint8_t expectedLottoTab5from50[] = {0, 1, 2, 3, 4};
+
+	for (uint8_t i = 0; i < 5; i++)
+	{
+		LOTTO_results.lottoTab5from50[i] = i;
+	}
+
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(expectedLottoTab5from50, LOTTO_results.lottoTab5from50, 5);
+}
+
+
+
+
+
+
+
+
+TEST(lotto, WhenNoGenerationNumbersTab2from12initialisedWithZeros)
+{
+	set_generated_values_and_generate_LOTTO_numbers(0);
+	update_2from12_testLOTTOresults_with_expected_value(FAKE_PERIPHERALS_NUMBER_WHEN_RANDOM_VALUE_IS_0);
+
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(testLOTTOresults.lottoTab2from12, LOTTO_results.lottoTab2from12, 2);
+}
+
+TEST(lotto, WhenGenerate2from12NumbersBufforsAreFilledOutWithWithInRangeValues)
+{
+	set_generated_values_and_generate_LOTTO_numbers(6);
+	update_2from12_testLOTTOresults_with_expected_value(6);
+
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(testLOTTOresults.lottoTab2from12, LOTTO_results.lottoTab2from12, 2);
+}
+
+TEST(lotto, empty_test_fail)
 {
 	TEST_FAIL_MESSAGE("Implement your test!");
 }
 
-// generater over range
-// if generated values < 0, result should be not valid
-// check what happens on the age of range - gen 0, -40... generate one more time, gen 51
 
 
 

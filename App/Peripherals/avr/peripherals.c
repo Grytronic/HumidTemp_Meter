@@ -29,7 +29,9 @@ void PERIPHERALS_enable_global_interrupts(void)
 	
 int PERIPHERALS_get_generated_random_value(void)
 {
-	return M328P_get_generated_random_value();
+	int ret_val = M328P_get_generated_random_value();
+
+	return ret_val;
 }
 
 void PERIPHERALS_delay_us(uint16_t delay)
