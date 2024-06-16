@@ -6,7 +6,7 @@
  */
 #include "fake_lotto.h"
 
-int FAKE_RandomReturnValue;
+int FAKE_RandomReturnValue = 0;
 int entry_counter = 0;
 
 int PERIPHERALS_get_generated_random_value(void)
