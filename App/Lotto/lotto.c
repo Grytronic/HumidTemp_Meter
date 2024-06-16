@@ -43,14 +43,14 @@ void LOTTO_generate_numbers(void)
 
 static uint8_t LOTTO_generate_5_from_50(void)
 {
-	uint8_t random_value = (uint8_t)((PERIPHERALS_get_generated_random_value() % LOTTO_5FROM50_OUT_RANGE));
+	uint8_t random_value = (uint8_t)(PERIPHERALS_get_generated_random_value() % LOTTO_5FROM50_OUT_RANGE);
 
 	return random_value;
 }
 
 static uint8_t LOTTO_generate_2_from_12(void)
 {
-	uint8_t random_value = (uint8_t)((PERIPHERALS_get_generated_random_value() % LOTTO_2FROM12_OUT_RANGE));
+	uint8_t random_value = (uint8_t)(PERIPHERALS_get_generated_random_value() % LOTTO_2FROM12_OUT_RANGE);
 
 	return random_value;
 }

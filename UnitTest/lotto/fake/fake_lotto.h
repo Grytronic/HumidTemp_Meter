@@ -8,7 +8,9 @@
 #ifndef FAKE_LOTTO_H_
 #define FAKE_LOTTO_H_
 
-extern const int PeripheralsFakeDefaultRandomReturnValue;
+
+int PERIPHERALS_get_generated_random_value(void);
+void PERIPHERALS_set_value_for_generated_random_value(int val);
 
 
 #endif /* FAKE_LOTTO_H_ */
