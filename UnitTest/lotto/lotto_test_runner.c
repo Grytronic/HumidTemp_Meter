@@ -16,4 +16,6 @@ TEST_GROUP_RUNNER(lotto)
    RUN_TEST_CASE(lotto, WhenGenerate2from12NumbersBufforsAreFilledOutWithPositiveOverrangeValues);
    RUN_TEST_CASE(lotto, WhenGenerate2from12NumbersBufforsAreFilledOutWithNegativeOverrangeValues);
    RUN_TEST_CASE(lotto, WhenGenerate2from12NumbersBufforsAreFilledOut2timesWithTheSameValues);
+
+   RUN_TEST_CASE(lotto, GenerateLOTTOnumbersToBeMilionaire);
 }

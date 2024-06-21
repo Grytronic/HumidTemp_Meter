@@ -7,11 +7,10 @@
 
 /* Private includes ---------------------------------------------------------------------------------------------------------------------------*/
 #include "lotto.h"
-#include "../Peripherals/avr/peripherals.h"
 
 /* Private defines ----------------------------------------------------------------------------------------------------------------------------*/
-#define LOTTO_5FROM50_OUT_RANGE 51U
-#define LOTTO_2FROM12_OUT_RANGE 13U
+#define LOTTO_5FROM50_OUT_RANGE 50U
+#define LOTTO_2FROM12_OUT_RANGE 12U
 
 #define GENERETED_TWICE 1U
 
@@ -46,11 +45,11 @@ void LOTTO_generate_numbers(void)
 
 static uint8_t LOTTO_generate_5_from_50(void)
 {
-	uint8_t random_value = (uint8_t)(PERIPHERALS_get_generated_random_value() % LOTTO_5FROM50_OUT_RANGE);
+	uint8_t random_value = (uint8_t)(PERIPHERALS_get_generated_random_value() % LOTTO_5FROM50_OUT_RANGE + 1U);
 
 	while ((0 >= random_value) || (LOTTO_check_if_in_5from50_the_same_number_generated_twice(random_value) == GENERETED_TWICE))
 	{
-		random_value = (uint8_t)(PERIPHERALS_get_generated_random_value() % LOTTO_5FROM50_OUT_RANGE);
+		random_value = (uint8_t)(PERIPHERALS_get_generated_random_value() % LOTTO_5FROM50_OUT_RANGE + 1U);
 	}
 
 	return random_value;
@@ -58,7 +57,7 @@ static uint8_t LOTTO_generate_5_from_50(void)
 
 static uint8_t LOTTO_generate_2_from_12(void)
 {
-	uint8_t random_value = (uint8_t)(PERIPHERALS_get_generated_random_value() % LOTTO_2FROM12_OUT_RANGE);
+	uint8_t random_value = (uint8_t)(PERIPHERALS_get_generated_random_value() % LOTTO_2FROM12_OUT_RANGE + 1U);
 
 	return random_value;
 }

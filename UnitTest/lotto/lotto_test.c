@@ -1,30 +1,13 @@
 #include "unity/fixture/unity_fixture.h"
 
 #include "stdio.h"
-#include "fake/fake_lotto.h"
+#include "mock_lotto.h"
 #include "../App/Lotto/lotto.h"
 
 
 Lotto_t testLOTTOresults;
 
 
-/*
-void update_5from50_testLOTTOresults_to_last_generated_value(void)
-{
-	for (uint8_t i = 0; i < 5; i++)
-	{
-		testLOTTOresults.lottoTab5from50[i] = PERIPHERALS_get_generated_random_value();
-	}
-}
-
-void update_2from12_testLOTTOresults_to_last_generated_value(void)
-{
-	for (uint8_t i = 0; i < 2; i++)
-	{
-		testLOTTOresults.lottoTab2from12[i] = PERIPHERALS_get_generated_random_value();
-	}
-}
-*/
 
 void update_5from50_testLOTTOresults_with_expected_value(uint8_t val)
 {
@@ -95,6 +78,7 @@ TEST_SETUP(lotto)
 {
     /* Init before every test */
 	PERIPHERALS_reset_start_value_for_generated_random_value();
+	PERIPHERALS_use_random_generation_mode(faked_numbers);
 }
 
 TEST_TEAR_DOWN(lotto)
@@ -107,7 +91,7 @@ TEST_TEAR_DOWN(lotto)
 TEST(lotto, WhenNoGenerationNumbersTab5from50initialisedWithZero)
 {
 	uint8_t test_number = 1;
-	uint8_t expectedLottoTab5from50[] = {FAKE_PERIPHERALS_NUMBER_WHEN_RANDOM_VALUE_IS_0, 4, 5, 6, 7};
+	uint8_t expectedLottoTab5from50[] = {DEFINED_VALUE_WHEN_RANDOM_VALUE_IS_0, 4, 5, 6, 7};
 
 	set_generated_values_and_generate_LOTTO_numbers(0);
 	print_generated_numbers_5from50(test_number);
@@ -129,7 +113,7 @@ TEST(lotto, WhenGenerate5from50NumbersBufforsAreFilledOutWithInRangeValues)
 TEST(lotto, WhenGenerate5from50NumbersBufforsAreFilledOutWithUpperLimitValue)
 {
 	uint8_t test_number = 3;
-	uint8_t expectedLottoTab5from50[] = {50, FAKE_PERIPHERALS_NUMBER_WHEN_RANDOM_VALUE_IS_0, 4, 5, 6};
+	uint8_t expectedLottoTab5from50[] = {50, DEFINED_VALUE_WHEN_RANDOM_VALUE_IS_0, 4, 5, 6};
 
 	set_generated_values_and_generate_LOTTO_numbers(50);
 	print_generated_numbers_5from50(test_number);
@@ -140,7 +124,7 @@ TEST(lotto, WhenGenerate5from50NumbersBufforsAreFilledOutWithUpperLimitValue)
 TEST(lotto, WhenGenerate5from50NumbersBufforsAreFilledOutWithPositiveOverrangeValues)
 {
 	uint8_t test_number = 4;
-	uint8_t expectedLottoTab5from50[] = {FAKE_PERIPHERALS_NUMBER_WHEN_RANDOM_VALUE_IS_0, 4, 5, 6, 7};
+	uint8_t expectedLottoTab5from50[] = {DEFINED_VALUE_WHEN_RANDOM_VALUE_IS_0, 4, 5, 6, 7};
 
 	set_generated_values_and_generate_LOTTO_numbers(51);
 	print_generated_numbers_5from50(test_number);
@@ -151,7 +135,7 @@ TEST(lotto, WhenGenerate5from50NumbersBufforsAreFilledOutWithPositiveOverrangeVa
 TEST(lotto, WhenGenerate5from50NumbersBufforsAreFilledOutWithOverrangeBigValues)
 {
 	uint8_t test_number = 5;
-	uint8_t expectedLottoTab5from50[] = {FAKE_PERIPHERALS_NUMBER_WHEN_RANDOM_VALUE_IS_0, 4, 5, 6, 7};
+	uint8_t expectedLottoTab5from50[] = {DEFINED_VALUE_WHEN_RANDOM_VALUE_IS_0, 4, 5, 6, 7};
 
 	set_generated_values_and_generate_LOTTO_numbers(127);
 	print_generated_numbers_5from50(test_number);
@@ -162,7 +146,7 @@ TEST(lotto, WhenGenerate5from50NumbersBufforsAreFilledOutWithOverrangeBigValues)
 TEST(lotto, WhenGenerate5from50NumbersBufforsAreFilledOutWithNegativeOverrangeValues)
 {
 	uint8_t test_number = 6;
-	uint8_t expectedLottoTab5from50[] = {FAKE_PERIPHERALS_NUMBER_WHEN_RANDOM_VALUE_IS_0, 4, 5, 6, 7};
+	uint8_t expectedLottoTab5from50[] = {DEFINED_VALUE_WHEN_RANDOM_VALUE_IS_0, 4, 5, 6, 7};
 
 	set_generated_values_and_generate_LOTTO_numbers(-128);
 	print_generated_numbers_5from50(test_number);
@@ -186,13 +170,11 @@ TEST(lotto, WhenGenerate5from50NumbersBufforsAreFilledOut2timesWithTheSameValues
     TEST_ASSERT_EQUAL_UINT8_ARRAY(expectedLottoTab5from50, LOTTO_results.lottoTab5from50, 5);
 }
 
-
-
 /* TEST 2 from 12 */
 TEST(lotto, WhenNoGenerationNumbersTab2from12initialisedWithZero)
 {
 	uint8_t test_number = 8;
-	uint8_t expectedLottoTab2from12[] = {FAKE_PERIPHERALS_NUMBER_WHEN_RANDOM_VALUE_IS_0, 4};
+	uint8_t expectedLottoTab2from12[] = {DEFINED_VALUE_WHEN_RANDOM_VALUE_IS_0, 4};
 
 	set_generated_values_and_generate_LOTTO_numbers(0);
 	print_generated_numbers_2from12(test_number);
@@ -214,7 +196,7 @@ TEST(lotto, WhenGenerate2from12NumbersBufforsAreFilledOutWithInRangeValues)
 TEST(lotto, WhenGenerate2from12NumbersBufforsAreFilledOutWithUpperLimitValue)
 {
 	uint8_t test_number = 10;
-	uint8_t expectedLottoTab2from12[] = {12, FAKE_PERIPHERALS_NUMBER_WHEN_RANDOM_VALUE_IS_0};
+	uint8_t expectedLottoTab2from12[] = {12, DEFINED_VALUE_WHEN_RANDOM_VALUE_IS_0};
 
 	set_generated_values_and_generate_LOTTO_numbers(12);
 	print_generated_numbers_2from12(test_number);
@@ -225,7 +207,7 @@ TEST(lotto, WhenGenerate2from12NumbersBufforsAreFilledOutWithUpperLimitValue)
 TEST(lotto, WhenGenerate2from12NumbersBufforsAreFilledOutWithPositiveOverrangeValues)
 {
 	uint8_t test_number = 11;
-	uint8_t expectedLottoTab2from12[] = {FAKE_PERIPHERALS_NUMBER_WHEN_RANDOM_VALUE_IS_0, 4};
+	uint8_t expectedLottoTab2from12[] = {DEFINED_VALUE_WHEN_RANDOM_VALUE_IS_0, 4};
 
 	set_generated_values_and_generate_LOTTO_numbers(13);
 	print_generated_numbers_2from12(test_number);
@@ -236,7 +218,7 @@ TEST(lotto, WhenGenerate2from12NumbersBufforsAreFilledOutWithPositiveOverrangeVa
 TEST(lotto, WhenGenerate2from12NumbersBufforsAreFilledOutWithOverrangeBigValues)
 {
 	uint8_t test_number = 12;
-	uint8_t expectedLottoTab2from12[] = {FAKE_PERIPHERALS_NUMBER_WHEN_RANDOM_VALUE_IS_0, 4};
+	uint8_t expectedLottoTab2from12[] = {DEFINED_VALUE_WHEN_RANDOM_VALUE_IS_0, 4};
 
 	set_generated_values_and_generate_LOTTO_numbers(127);
 	print_generated_numbers_2from12(test_number);
@@ -247,7 +229,7 @@ TEST(lotto, WhenGenerate2from12NumbersBufforsAreFilledOutWithOverrangeBigValues)
 TEST(lotto, WhenGenerate2from12NumbersBufforsAreFilledOutWithNegativeOverrangeValues)
 {
 	uint8_t test_number = 13;
-	uint8_t expectedLottoTab2from12[] = {FAKE_PERIPHERALS_NUMBER_WHEN_RANDOM_VALUE_IS_0, 4};
+	uint8_t expectedLottoTab2from12[] = {DEFINED_VALUE_WHEN_RANDOM_VALUE_IS_0, 4};
 
 	set_generated_values_and_generate_LOTTO_numbers(-128);
 	print_generated_numbers_2from12(test_number);
@@ -260,16 +242,43 @@ TEST(lotto, WhenGenerate2from12NumbersBufforsAreFilledOut2timesWithTheSameValues
 	uint8_t test_number = 14;
 	uint8_t expectedLottoTab2from12[] = {0, 6};
 
-	for (uint8_t i = 0; i < 5; i++)
+	for (uint8_t i = 0; i < 2; i++)
 	{
-		LOTTO_results.lottoTab5from50[i] = i;
+		LOTTO_results.lottoTab2from12[i] = i;
 	}
 	print_generated_numbers_2from12(test_number);
 
     TEST_ASSERT_EQUAL_UINT8_ARRAY(expectedLottoTab2from12, LOTTO_results.lottoTab2from12, 5);
 }
 
+TEST(lotto, GenerateLOTTOnumbersToBeMilionaire)
+{
+	uint8_t cout_of_games = 20;
 
+	PERIPHERALS_use_random_generation_mode(generated_numbers);
+
+	printf("\n\n\n\nGenerated LOTTO numbers for today: \n\n");
+	printf("5_from_50 : 2_from_12: \n");
+	printf("---------------------- \n");
+	for (uint8_t i = 0; i < cout_of_games; i++)
+	{
+		LOTTO_generate_numbers();
+
+		for (uint8_t i = 0; i < 5; i++)
+		{
+			printf("%d ",LOTTO_results.lottoTab5from50[i]);
+		}
+		printf("  :  ");
+		for (uint8_t i = 0; i < 2; i++)
+		{
+			printf("%d ", LOTTO_results.lottoTab2from12[i]);
+		}
+		printf("\n");
+	}
+	printf("\n\n");
+
+    TEST_FAIL_MESSAGE("Before you will win buy generated ticket!!!")
+}
 
 
 

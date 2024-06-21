@@ -47,35 +47,35 @@ build cmake_object_order_depends_target_lotto_test: phony || cmake_object_order_
 build CMakeFiles/lotto_test.dir/C_/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/App/Lotto/lotto.c.obj: C_COMPILER__lotto_test_unscanned_ C$:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/App/Lotto/lotto.c || cmake_object_order_depends_target_lotto_test
   DEP_FILE = CMakeFiles\lotto_test.dir\C_\Users\Boss\eclipse-workspace\Proj1_HumidTemp_Meter\App\Lotto\lotto.c.obj.d
   FLAGS = -Wall -Wextra
-  INCLUDES = -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/../include/avr -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/../include -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/../../App/Lotto -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/.. -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/.
+  INCLUDES = -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/../include -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/.. -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/.
   OBJECT_DIR = CMakeFiles\lotto_test.dir
   OBJECT_FILE_DIR = CMakeFiles\lotto_test.dir\C_\Users\Boss\eclipse-workspace\Proj1_HumidTemp_Meter\App\Lotto
 
-build CMakeFiles/lotto_test.dir/fake/fake_lotto.c.obj: C_COMPILER__lotto_test_unscanned_ C$:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/fake/fake_lotto.c || cmake_object_order_depends_target_lotto_test
-  DEP_FILE = CMakeFiles\lotto_test.dir\fake\fake_lotto.c.obj.d
+build CMakeFiles/lotto_test.dir/mock_lotto.c.obj: C_COMPILER__lotto_test_unscanned_ C$:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/mock_lotto.c || cmake_object_order_depends_target_lotto_test
+  DEP_FILE = CMakeFiles\lotto_test.dir\mock_lotto.c.obj.d
   FLAGS = -Wall -Wextra
-  INCLUDES = -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/../include/avr -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/../include -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/../../App/Lotto -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/.. -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/.
+  INCLUDES = -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/../include -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/.. -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/.
   OBJECT_DIR = CMakeFiles\lotto_test.dir
-  OBJECT_FILE_DIR = CMakeFiles\lotto_test.dir\fake
+  OBJECT_FILE_DIR = CMakeFiles\lotto_test.dir
 
 build CMakeFiles/lotto_test.dir/lotto_test_main.c.obj: C_COMPILER__lotto_test_unscanned_ C$:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/lotto_test_main.c || cmake_object_order_depends_target_lotto_test
   DEP_FILE = CMakeFiles\lotto_test.dir\lotto_test_main.c.obj.d
   FLAGS = -Wall -Wextra
-  INCLUDES = -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/../include/avr -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/../include -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/../../App/Lotto -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/.. -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/.
+  INCLUDES = -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/../include -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/.. -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/.
   OBJECT_DIR = CMakeFiles\lotto_test.dir
   OBJECT_FILE_DIR = CMakeFiles\lotto_test.dir
 
 build CMakeFiles/lotto_test.dir/lotto_test_runner.c.obj: C_COMPILER__lotto_test_unscanned_ C$:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/lotto_test_runner.c || cmake_object_order_depends_target_lotto_test
   DEP_FILE = CMakeFiles\lotto_test.dir\lotto_test_runner.c.obj.d
   FLAGS = -Wall -Wextra
-  INCLUDES = -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/../include/avr -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/../include -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/../../App/Lotto -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/.. -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/.
+  INCLUDES = -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/../include -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/.. -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/.
   OBJECT_DIR = CMakeFiles\lotto_test.dir
   OBJECT_FILE_DIR = CMakeFiles\lotto_test.dir
 
 build CMakeFiles/lotto_test.dir/lotto_test.c.obj: C_COMPILER__lotto_test_unscanned_ C$:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/lotto_test.c || cmake_object_order_depends_target_lotto_test
   DEP_FILE = CMakeFiles\lotto_test.dir\lotto_test.c.obj.d
   FLAGS = -Wall -Wextra
-  INCLUDES = -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/../include/avr -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/../include -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/../../App/Lotto -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/.. -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/.
+  INCLUDES = -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/../include -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/.. -IC:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/lotto/.
   OBJECT_DIR = CMakeFiles\lotto_test.dir
   OBJECT_FILE_DIR = CMakeFiles\lotto_test.dir
 
@@ -87,7 +87,7 @@ build CMakeFiles/lotto_test.dir/lotto_test.c.obj: C_COMPILER__lotto_test_unscann
 #############################################
 # Link the executable lotto_test.exe
 
-build lotto_test.exe: C_EXECUTABLE_LINKER__lotto_test_ CMakeFiles/lotto_test.dir/C_/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/App/Lotto/lotto.c.obj CMakeFiles/lotto_test.dir/fake/fake_lotto.c.obj CMakeFiles/lotto_test.dir/lotto_test_main.c.obj CMakeFiles/lotto_test.dir/lotto_test_runner.c.obj CMakeFiles/lotto_test.dir/lotto_test.c.obj | unity/libunity.a || unity/libunity.a
+build lotto_test.exe: C_EXECUTABLE_LINKER__lotto_test_ CMakeFiles/lotto_test.dir/C_/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/App/Lotto/lotto.c.obj CMakeFiles/lotto_test.dir/mock_lotto.c.obj CMakeFiles/lotto_test.dir/lotto_test_main.c.obj CMakeFiles/lotto_test.dir/lotto_test_runner.c.obj CMakeFiles/lotto_test.dir/lotto_test.c.obj | unity/libunity.a || unity/libunity.a
   FLAGS = -Wall -Wextra
   LINK_LIBRARIES = unity/libunity.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\lotto_test.dir
