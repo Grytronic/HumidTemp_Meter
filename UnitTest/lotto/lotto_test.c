@@ -253,13 +253,13 @@ TEST(lotto, WhenGenerate2from12NumbersBufforsAreFilledOut2timesWithTheSameValues
 
 TEST(lotto, GenerateLOTTOnumbersToBeMilionaire)
 {
-	uint8_t cout_of_games = 20;
+	uint8_t cout_of_games = 150;
 
 	PERIPHERALS_use_random_generation_mode(generated_numbers);
 
 	printf("\n\n\n\nGenerated LOTTO numbers for today: \n\n");
-	printf("5_from_50 : 2_from_12: \n");
-	printf("---------------------- \n");
+	printf("5_from_50 : 2_from_12:\n");
+	printf("----------------------\n");
 	for (uint8_t i = 0; i < cout_of_games; i++)
 	{
 		LOTTO_generate_numbers();
