@@ -24,10 +24,10 @@
 
 /* External variables -------------------------------------------------------------------------------------------------------------------------*/ 
 // Character bitmaps for Microsoft Sans Serif 12pt
-#if (SET == USE_HW_PLATFORM_AVR)
-const uint8_t MicrosoftSansSerif12ptBitmaps[] PROGMEM =
+#if (ACTIVE == USE_HW_PLATFORM_AVR)
+	const uint8_t MicrosoftSansSerif12ptBitmaps[] PROGMEM =
 #else
-const uint8_t MicrosoftSansSerif12ptBitmaps[] =
+	const uint8_t MicrosoftSansSerif12ptBitmaps[] =
 #endif
 {
      // @0   [0]   (7 px wide)
@@ -618,10 +618,10 @@ const PROGMEM uint8_t microsoftSansSerif_8pt[] =
 
 };
 */
-#if (SET == USE_HW_PLATFORM_AVR)
-const PROGMEM uint8_t MicrosoftTaiLe28[] =
+#if (ACTIVE == USE_HW_PLATFORM_AVR)
+	const PROGMEM uint8_t MicrosoftTaiLe28[] =
 #else
-const uint8_t MicrosoftTaiLe28[] =
+	const uint8_t MicrosoftTaiLe28[] =
 #endif
 {
 		 // @0   [0]   (16 px wide)

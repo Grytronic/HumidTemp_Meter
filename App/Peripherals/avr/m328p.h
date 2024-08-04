@@ -52,13 +52,13 @@ void M328P_delay_ms(uint16_t delay);
 //			D3   PD3 			    ---	    A6
 //  DTH11   D4   PD4   		    ---     A5  PC5                 I2C SSD1306
 //	  	    D5   PD5      		---     A4  PC4                 I2C SSD1306
-//     TM.. D6   PD6      		---     A3  PC3                 ButtonMenu (PCINT11)
+// TM..DATA D6   PD6      		---     A3  PC3                 ButtonMenu (PCINT11)
 //  	    D7   PD7    	 		---     A2  PC2             ButtonChoose (PCINT10)
 //		    D8   PB0      		---     A1  PC1                 Buzzer
 //		    D9   PB1      		---     A0  PC0                 ADC
 //		    D10  PB2     			---     AREF
 //		    D11  PB3      		---     3V3
-// 		TM..D12  PB4      		---     D13 PB5  LED
+//  TM_CLK..D12  PB4      		---     D13 PB5  LED
  *
  * ------CONNECTIONS--------
  * 	OLED:

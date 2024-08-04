@@ -42,7 +42,7 @@ void TIM0_reset (void)
 void TIM0_wait_for_low_level(uint8_t timeout_us)
 {
 	TIM0_reset();
-	while (DHT_PINREG & DHT_PIN) {
+	while (DIO_check_if_dht_PIN_is_high()) {
 		if ( TIM0_time_calculated_us() > timeout_us) return;
 	}
 }
@@ -50,7 +50,7 @@ void TIM0_wait_for_low_level(uint8_t timeout_us)
 void TIM0_wait_for_high_level(uint8_t timeout_us)
 {
 	TIM0_reset();
-	while (!(DHT_PINREG & DHT_PIN)) {
+	while (!DIO_check_if_dht_PIN_is_high()) {
 		if ( TIM0_time_calculated_us() > timeout_us) return;
 	}
 }

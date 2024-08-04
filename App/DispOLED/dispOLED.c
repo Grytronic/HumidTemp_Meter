@@ -21,6 +21,11 @@ static void DISPOLED_ssd1306_display_lotto_numbers(Lotto_t* pNumbers);
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /* Function definitions -----------------------------------------------------------------------------------------------------------------------*/ 
+void DISPOLED_HW_init(void)
+{
+	SSD1306_init(SSD1306_REFRESH_RATIO_MID, SSD1306_MAX_CONTRAST);
+}
+
 void DISPOLED_init_for_temp(void)
 {
 	DISPOLED_ssd1306_init_for_temp();

@@ -14,6 +14,10 @@
 #include "../Lotto/lotto.h"
 
 /* External defines ---------------------------------------------------------------------------------------------------------------------------*/
+#define SSD1306_MAX_CONTRAST 0xFFU
+#define SSD1306_REFRESH_RATIO_MIN 0x80U
+#define SSD1306_REFRESH_RATIO_MID 0xB0U
+#define SSD1306_REFRESH_RATIO_MAX 0xF0U
 
 /* External types -----------------------------------------------------------------------------------------------------------------------------*/ 
 typedef float float32_t;
@@ -22,6 +26,7 @@ typedef float float32_t;
 /* External variables -------------------------------------------------------------------------------------------------------------------------*/
 
 /* External functions -------------------------------------------------------------------------------------------------------------------------*/
+void DISPOLED_HW_init(void);
 void DISPOLED_init_for_temp(void);
 void DISPOLED_clear(void);
 void DISPOLED_set_contrast(uint8_t value);

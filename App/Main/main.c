@@ -7,7 +7,15 @@
 
 /* Private includes ---------------------------------------------------------------------------------------------------------------------------*/
 #include "main.h"
-#include "../Peripherals/avr/peripherals.h"
+
+#if (ACTIVE == USE_HW_PLATFORM_AVR)
+	#include "../Peripherals/avr/peripherals.h"
+#elif (ACTIVE == USE_HW_PLATFORM_STM32)
+	#include "../Peripherals/stm32/peripherals.h"
+#else
+    #error "HW-platform not defined"
+#endif
+
 #include "../GPS/gps.h"
 #include "../GPS/neo6m.h"
 #include "../DispOLED/dispOLED.h"
@@ -40,7 +48,7 @@ volatile uint8_t Button1_MENUpressed_FLAG   = FLAG_IS_RESET;
 volatile uint8_t Button2_CHANGEpressed_FLAG = FLAG_IS_RESET;
 volatile uint8_t OneSecondLeftFLAG          = FLAG_IS_RESET;
 
-uint8_t SecCounter = 60U;
+uint8_t SecCounter_u8 = 60U;
 
 uint8_t SecondsTimerONflag              = FLAG_IS_RESET;
 uint8_t SecondsTimerLeftReachedZeroFlag = FLAG_IS_RESET;
@@ -59,42 +67,43 @@ ProfilConfig_t* pProfilDefault = NULL;
 float TempSampleTab[COUNT_OF_SAMPLES_FOR_MEANVALUE_CALCULATION];
 
 /* Private function declarations --------------------------------------------------------------------------------------------------------------*/
-void choose_default_profil_and_set_active_mode(void);
-void handle_circle_buffor_with_temp_values(void);
-void update_buzer_alarm_notification(void);
-void execute_if_devPoint_is_too_low(void);
-void execute_if_any_button_is_pressed(void);
+static void choose_default_profil_and_set_active_mode(void);
+static void handle_circle_buffor_with_temp_values(void);
+static void update_buzer_alarm_notification(void);
+static void execute_if_devPoint_is_too_low(void);
+static void execute_if_any_button_is_pressed(void);
 
-//static void executeIfAnyButtonIsPressed(void);  no definition
-bool time_1sec_is_elapsed(void);
-bool time_4sec_is_elapsed(void);
-void show_temp_value_for_alarm(void);
-void refresh_buzzer_status_if_badroom_profil_is_choosen(void);
+static bool time_1sec_is_elapsed(void);
+static bool time_4sec_is_elapsed(void);
+static void show_temp_value_for_alarm(void);
+static void refresh_buzzer_status_if_badroom_profil_is_choosen(void);
 
-void init_profiles_with_default_values(ProfilCollection_t* pSProfilCollection);
+static void init_profiles_with_default_values(ProfilCollection_t* pSProfilCollection);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /* Function definitions -----------------------------------------------------------------------------------------------------------------------*/ 
 int main(void)
 {
-
+/* INITIALISATION */
 	init_profiles_with_default_values(&SProfilCollection);
 	choose_default_profil_and_set_active_mode();
 
+	// HW-INIT
 	PERIPHERALS_init();
-
 	TEMPHUMID_init();
-	DISP7SEGLED_init(pProfilDefault->config_LEDdispBrightness);
+	DISPOLED_HW_init();
 	DHT_init();
+	DISP7SEGLED_init(pProfilDefault->config_LEDdispBrightness);
+	  while(1);
 	DISPOLED_init_for_temp();
-#if ((1 == USE_GPS) || (1 == USE_FAKE_GPS))
+#if ((ACTIVE == USE_GPS) && (ACTIVE == USE_FAKE_GPS))
 	GPS_init();
 #endif
-#if defined (USE_RTC)
+#if (ACTIVE == USE_RTC)
 	RTC_init();
 #endif 
- 
+	// IO-behavior Init
     show_temp_value_for_alarm();
     refresh_buzzer_status_if_badroom_profil_is_choosen();
 	PERIPHERALS_enable_global_interrupts();
@@ -103,11 +112,11 @@ while(1)
 {
 	if (time_1sec_is_elapsed())
 	{
-		if ((FLAG_IS_SET == SecondsTimerONflag) && (SecondsTimerLeftReachedZeroFlag == FLAG_IS_RESET) && (0 != SecCounter))
+		if ((FLAG_IS_SET == SecondsTimerONflag) && (SecondsTimerLeftReachedZeroFlag == FLAG_IS_RESET) && (ZERO_U != SecCounter_u8))
 		{
-			SecCounter--;
+			SecCounter_u8--;
 
-			if (ZERO == SecCounter)
+			if (ZERO_U == SecCounter_u8)
 			{
 
 				SecondsTimerLeftReachedZeroFlag = FLAG_IS_SET;
@@ -174,23 +183,23 @@ while(1)
 
 ISR(TIMER1_OVF_vect)
 {
-	static uint8_t CountOfPeriods262ms = ZERO;
+	static uint8_t CountOfPeriods262ms_u8 = ZERO_U;
 
 	// next measurement period for DTHxx
 	#define PERIOD_FACTOR_FOR_2s 9U
     #define PERIOD_FACTOR_FOR_4s 18U
 
-	CountOfPeriods262ms++;
+	CountOfPeriods262ms_u8++;
 
-	if (ZERO == (CountOfPeriods262ms % 4))
+	if (ZERO_U == (CountOfPeriods262ms_u8 % 4U))
 	{
 		OneSecondLeftFLAG = FLAG_IS_SET;
 	}
 
-	if (PERIOD_FACTOR_FOR_4s == CountOfPeriods262ms)
+	if (PERIOD_FACTOR_FOR_4s == CountOfPeriods262ms_u8)
 		{
 			TimePeriodLeft_FLAG = FLAG_IS_SET;
-			CountOfPeriods262ms = 0;
+			CountOfPeriods262ms_u8 = 0;
 		}
 
 	//check_taufpunkt();
@@ -215,7 +224,7 @@ ISR(PCINT1_vect)
 	}
 }
 
-void execute_if_any_button_is_pressed(void)
+static void execute_if_any_button_is_pressed(void)
 {
 	if (FLAG_IS_SET == Button1_MENUpressedFLAG) //black button
 	{
@@ -233,13 +242,13 @@ void execute_if_any_button_is_pressed(void)
 			/* deactivate buzzer when alaram is active , second press activates it back*/
 			if (FLAG_IS_SET == BuzzerAlarmActive)
 			{
-				if (ZERO < pProfilDefault->config_alarmBeeperON)
+				if (ZERO_U < pProfilDefault->config_alarmBeeperON)
 				{
-					pProfilDefault->config_alarmBeeperON = RESET;
+					pProfilDefault->config_alarmBeeperON = NOT_ACTIVE;
 				}
 				else
 				{
-					pProfilDefault->config_alarmBeeperON = SET;
+					pProfilDefault->config_alarmBeeperON = ACTIVE;
 				}
 			}
 			update_buzer_alarm_notification();
@@ -292,7 +301,7 @@ void execute_if_any_button_is_pressed(void)
 			// if (sProfil_badroom.temp_alarm_level <30) sProfil_badroom.temp_alarm_level += 1;
 
 			LOTTO_generate_numbers();
-			while (ZERO == DIO_check_if_Button_CHANGE_is_pressed()); //wait until pressed second time
+			while (ZERO_U == DIO_check_if_Button_CHANGE_is_pressed()); //wait until pressed second time
 			PERIPHERALS_delay_ms(250);
 			DISPOLED_clear();
 			DISPOLED_display_digit_18x26(54, 12);  //znak stopnia - kolko
@@ -318,15 +327,15 @@ void execute_if_any_button_is_pressed(void)
 	}
 }
 
-void choose_default_profil_and_set_active_mode(void)
+static void choose_default_profil_and_set_active_mode(void)
 {
 	/* settings related to choosen work profil */
 	#if(SET == USE_PROFIL_HOME)
-			pS_ProfilDefault = &S_ProfilHome;
+			pProfilDefault = &S_ProfilHome;
 			E_activeMode = home;
 	#endif
 	#if(SET == USE_PROFIL_CAR)
-			pS_ProfilDefault = &S_ProfilCar;
+			pProfilDefault = &S_ProfilCar;
 			E_activeMode = car;
 	#endif
 	#if(SET == USE_PROFIL_BADROOM)
@@ -335,7 +344,7 @@ void choose_default_profil_and_set_active_mode(void)
 	#endif
 }
 
-void handle_circle_buffor_with_temp_values(void)
+static void handle_circle_buffor_with_temp_values(void)
 {
 #if (0)
 	/* bufor kolowy zbierajacy wartosci temperatury */
@@ -361,7 +370,7 @@ void handle_circle_buffor_with_temp_values(void)
 #endif
 }
 
-void update_buzer_alarm_notification(void)
+static void update_buzer_alarm_notification(void)
 {
 	if (1U == pProfilDefault->config_alarmBeeperON)
 	{
@@ -373,7 +382,7 @@ void update_buzer_alarm_notification(void)
 	}
 }
 
-void execute_if_devPoint_is_too_low(void)
+static void execute_if_devPoint_is_too_low(void)
 {
 	if ((( S_SensorData.Temp_integral < S_ProfilBadroom.config_alarmTempValue) && (S_SensorData.RH_integral < S_ProfilBadroom.config_alarmHumidValue))
 					||  ((S_SensorData.RH_integral < S_ProfilBadroom.config_alarmHumidValue) && ((Temperature - DevPoint) >= S_ProfilBadroom.config_alarmDevTempDifference)))
@@ -398,7 +407,7 @@ void execute_if_devPoint_is_too_low(void)
 	}
 }
 
-bool time_1sec_is_elapsed(void)
+static bool time_1sec_is_elapsed(void)
 {
 	if (FLAG_IS_SET == OneSecondLeftFLAG)
 	{
@@ -411,7 +420,7 @@ bool time_1sec_is_elapsed(void)
 	}
 }
 
-bool time_4sec_is_elapsed(void)
+static bool time_4sec_is_elapsed(void)
 {
 	if (FLAG_IS_SET == TimePeriodLeft_FLAG)
 	{
@@ -424,7 +433,7 @@ bool time_4sec_is_elapsed(void)
 	}
 }
 
-void show_temp_value_for_alarm(void)
+static void show_temp_value_for_alarm(void)
 {
     DISP7SEGLED_display_int16(S_ProfilBadroom.config_alarmTempValue);
 }
@@ -436,7 +445,7 @@ void refresh_buzzer_status_if_badroom_profil_is_choosen(void)
 	#endif
 }
 
-void init_profiles_with_default_values(ProfilCollection_t* pSProfilCollection)
+static void init_profiles_with_default_values(ProfilCollection_t* pSProfilCollection)
 {
 	/* PROFIL CAR INIT*/
 	pSProfilCollection->pProfilCar->config_humidityOffset 	  	       = CAR_HUMIDITY_OFFSET;

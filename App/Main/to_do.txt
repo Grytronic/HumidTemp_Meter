@@ -1,0 +1,2 @@
+- all variables with prefix of type: counter_u32
+- oled HW init using some callback function with HW init

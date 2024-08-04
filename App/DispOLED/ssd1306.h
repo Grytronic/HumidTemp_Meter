@@ -24,10 +24,6 @@
 #define SSD1306_128_64 UNSELECTED 
 #define SSD1306_I2C_ADDRESS I2C_128x32_ADDRESS
 
-#define REFRESH_MIN 0x80U
-#define REFRESH_MID 0xB0U
-#define REFRESH_MAX 0xF0U
-
 #define SSD1306_DEFAULT_CONTRAST 0x49U
 
 /* External types -----------------------------------------------------------------------------------------------------------------------------*/ 
@@ -36,7 +32,7 @@
 
 /* External functions -------------------------------------------------------------------------------------------------------------------------*/ 
 void SSD1306_set_contrast(uint8_t contrast_value); 
-void SSD1306_init(uint8_t refresh);
+void SSD1306_init(uint8_t refresh, uint8_t contrast_value);
 
 void SSD1306_vertical_offset(void); // przesuniecie w pionie  0..31
 void SSD1306_negativ_on(void);

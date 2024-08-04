@@ -7,6 +7,7 @@
 
 /* Private includes ---------------------------------------------------------------------------------------------------------------------------*/
 #include "dht.h"
+#include "../Peripherals/avr/dio.h"
 
 /* Private defines ----------------------------------------------------------------------------------------------------------------------------*/
 #define MAX_READ_TIM0_TIMEOUT  125
@@ -31,10 +32,6 @@ static uint16_t DHT_receive_data16(void);
 /* Function definitions -----------------------------------------------------------------------------------------------------------------------*/ 
 void DHT_init(void)
 {
-#if (1 == USE_INTERNAL_PULLUP_FOR_SENSOR)
-	DHT_PORT |= DHT_PIN; 		//pull-up on
-#endif
-	// pin as input, standby state: high
 	PERIPHERALS_delay_ms(2000);
 }
 

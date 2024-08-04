@@ -45,7 +45,7 @@ void DISP7SEGLED_set_brightness(uint8_t brightness)
 
 void DISP7SEGLED_display_dev_point(ProfilConfig_t* defaultProfil, uint8_t devPoint)
 {
-	if (SET == defaultProfil->config_LEDdisplayDevPointValue)
+	if (ACTIVE == defaultProfil->config_LEDdisplayDevPointValue)
 	{
 		TM1637_display_u8_as_2_digits(devPoint);
 	}
@@ -53,7 +53,7 @@ void DISP7SEGLED_display_dev_point(ProfilConfig_t* defaultProfil, uint8_t devPoi
 
 void DISP7SEGLED_display_alarm_temp(ProfilConfig_t* defaultProfil)
 {
-	if (SET == defaultProfil->config_LEDdisplayTempAlarmValue)
+	if (ACTIVE == defaultProfil->config_LEDdisplayTempAlarmValue)
 	{
 		TM1637_display_u8_as_2_digits(defaultProfil->config_alarmTempValue);
 	}
@@ -61,7 +61,7 @@ void DISP7SEGLED_display_alarm_temp(ProfilConfig_t* defaultProfil)
 
 void DISP7SEGLED_display_gps_speed(GPSstate_t* gpsData)
 {
-	if (gpsData->satelites_number > 0U)
+	if (gpsData->satelites_number > ZERO_U)
 	{
 		TM1637_display_u16((uint16_t)gpsData->speed_kilometers);
 	}

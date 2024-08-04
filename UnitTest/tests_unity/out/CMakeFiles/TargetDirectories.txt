@@ -1,0 +1,6 @@
+C:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/tests_unity/out/CMakeFiles/tests_unity.dir
+C:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/tests_unity/out/CMakeFiles/edit_cache.dir
+C:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/tests_unity/out/CMakeFiles/rebuild_cache.dir
+C:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/tests_unity/out/unity/CMakeFiles/unity.dir
+C:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/tests_unity/out/unity/CMakeFiles/edit_cache.dir
+C:/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/UnitTest/tests_unity/out/unity/CMakeFiles/rebuild_cache.dir

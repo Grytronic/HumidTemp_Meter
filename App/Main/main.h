@@ -19,59 +19,19 @@
 #ifndef __MAIN_H_
 #define __MAIN_H_
 
-/* External includes --------------------------------------------------------------------------------------------------------------------------*/ 
+/* External includes --------------------------------------------------------------------------------------------------------------------------*/
 #include <stdint.h>
 #include <stdbool.h>
 #include <float.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include "config/config.h"
 #include "../Peripherals/avr/peripherals.h"
 
 /* External defines ---------------------------------------------------------------------------------------------------------------------------*/
-/* ---------------------------- */
-/* --- GLOBAL CONFIGURATION --- */
-/* ---------------------------- */
-
-/* Choose an active HW platform for HW config*/
-#define USE_HW_PLATFORM_AVR    1U
-#define USE_HW_PLATFORM_STM32  0U
-
-#define USE_DEBUG_STRIPS      1U
-#define USE_DEBUG_DOTS        0U
-
-#define DEBUG_MODE_ACTIVE     0U
-
-/* choose used temp/humid sensor */
-#define USE_DTH11		      1U
-#define USE_DTH22_AM2302	  0U
-#define USE_SHT20       	  0U
-
-/* choose additional modules     */
-#define USE_RTC               0U
-#define USE_GPS               0U
-#define USE_FAKE_GPS          1U
-
-/* choose default working profil */
-#define USE_PROFIL_HOME		  0U
-#define USE_PROFIL_CAR		  0U
-#define USE_PROFIL_BADROOM    1U
-
-/* some calibration parameters   */
-#define COUNT_OF_SAMPLES_FOR_MEANVALUE_CALCULATION 0U
-
-#define CAR_TEMP_OFFSET            0U
-#define HOME_TEMP_OFFSET           0U
-#define BADROOM_TEMP_OFFSET        0U
-#define CAR_HUMIDITY_OFFSET        0U
-#define HOME_HUMIDITY_OFFSET       0U
-#define BADROOM_HUMIDITY_OFFSET    0U
-
 #define FLAG_IS_SET   1U
 #define FLAG_IS_RESET 0U
-#define SET   1U
-#define RESET 0U
-#define ZERO  0U
 
 /* External types -----------------------------------------------------------------------------------------------------------------------------*/
 typedef struct {

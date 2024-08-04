@@ -1,0 +1,14 @@
+# ninja log v5
+5	509	7444891177959143	CMakeFiles/tests_unity.dir/C_/Users/Boss/eclipse-workspace/Proj1_HumidTemp_Meter/App/Lotto/lotto.c.obj	45c61ad8f8cf0d8d
+126	579	7444891179759852	CMakeFiles/tests_unity.dir/dio/dio_test.c.obj	d1ae6c3738f9a331
+40	750	7444891181790664	CMakeFiles/tests_unity.dir/lotto/mock_lotto.c.obj	f5eafa1f7c9cf52a
+78	790	7444891182146052	CMakeFiles/tests_unity.dir/lotto/lotto_test.c.obj	b514504350d41833
+300	823	7444891182506085	CMakeFiles/tests_unity.dir/test_main.c.obj	8afbc32ccfaf5cc5
+453	968	7444891184037799	unity/CMakeFiles/unity.dir/fixture/unity_fixture.c.obj	1c0929768daf2645
+393	993	7444891184292958	unity/CMakeFiles/unity.dir/core/unity.c.obj	3342dba6d0da8998
+22	315	7444891679259440	CMakeFiles/tests_unity.dir/dio_test_runner.c.obj	8694d3cef33bf35d
+49	379	7444891679879398	CMakeFiles/tests_unity.dir/lotto_test_runner.c.obj	1f48d810cce35825
+82	430	7444891680380065	unity/libunity.a	4212f010d1f50b7f
+430	721	7444891683209216	tests_unity.exe	bcfe2f6894180185
+39	443	7445058872596569	CMakeFiles/tests_unity.dir/test_main.c.obj	8afbc32ccfaf5cc5
+446	832	7445058876268052	tests_unity.exe	bcfe2f6894180185

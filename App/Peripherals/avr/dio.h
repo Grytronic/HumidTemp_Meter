@@ -14,48 +14,6 @@
 #include "peripherals.h"
  
 /* External defines ---------------------------------------------------------------------------------------------------------------------------*/
-/* Disp7SegLED mapping: */
-#define TM1637_PORT_DATA			 	PORTD
-#define TM1637_DIRECTION_REG_DATA 		DDRD
-#define TM1637_PINREG_DATA				PIND
-
-#define TM1637_PORT_CLK			 		PORTB
-#define TM1637_DIRECTION_REG_CLK 		DDRB
-#define TM1637_PINREG_CLK				PINB
-
-#define DATA_PIN					    PD6  //D6
-#define CLK_PIN						    PB4	 //D12
-
-
-
-
-
-
-#define DHT_PIN 		(1<<PD4)
-#define DHT_PORT 		PORTD
-#define DHT_DIR			DDRD
-#define DHT_PINREG 		PIND
-#define USE_INTERNAL_PULLUP_FOR_SENSOR 1
-
-
-
-
-#define SET_CLKPIN_TO_HIGH		TM1637_PORT_CLK |= (1<<CLK_PIN)
-#define SET_CLKPIN_TO_LOW		TM1637_PORT_CLK &= ~(1<<CLK_PIN)
-
-#define SET_DATAPIN_TO_HIGH		TM1637_PORT_DATA |= (1<<DATA_PIN)
-#define SET_DATAPIN_TO_LOW		TM1637_PORT_DATA &= ~(1<<DATA_PIN)
-
-#define CONFIG_TM1637_DATA_PIN_AS_INPUT  	TM1637_DIRECTION_REG_DATA &= ~(1<<DATA_PIN)
-#define CONFIG_TM1637_DATA_PIN_AS_OUTPUT	TM1637_DIRECTION_REG_DATA |= (1<<DATA_PIN)
-#define CONFIG_TM1637_CLK_PIN_AS_OUTPUT		TM1637_DIRECTION_REG_CLK |= (1<<CLK_PIN)
-
-#define CONFIG_TM1637_DATA_PIN_SET_PULLUP 	TM1637_PORT_DATA |= (1<<DATA_PIN)
-
-
-#define IS_DATAPIN_LOW			!(TM1637_PINREG_DATA & (1<<DATA_PIN))
-#define IS_DATAPIN_HIGH			TM1637_PINREG_DATA & (1<<DATA_PIN)
-
 /* External types -----------------------------------------------------------------------------------------------------------------------------*/ 
 /* External consts ----------------------------------------------------------------------------------------------------------------------------*/ 
 /* External variables -------------------------------------------------------------------------------------------------------------------------*/
@@ -83,6 +41,8 @@ void DIO_buzzer_BEEP(void);
 
 void DIO_dht_setPIN_low(void);
 void DIO_dht_setPIN_high(void);
+void DIO_dht_pullup_on(void);
+uint8_t DIO_check_if_dht_PIN_is_high(void);
 
 void DIO_set_tm1637_clk_low(void);
 void DIO_set_tm1637_clk_high(void);
