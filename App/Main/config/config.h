@@ -32,7 +32,7 @@
 /* choose additional modules     */
 #define USE_RTC                NOT_ACTIVE
 #define USE_GPS                NOT_ACTIVE
-#define USE_FAKE_GPS           ACTIVE
+#define USE_FAKE_GPS           NOT_ACTIVE
 
 /* choose default working profil */
 #define USE_PROFIL_HOME		   NOT_ACTIVE

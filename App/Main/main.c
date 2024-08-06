@@ -95,9 +95,8 @@ int main(void)
 	DISPOLED_HW_init();
 	DHT_init();
 	DISP7SEGLED_init(pProfilDefault->config_LEDdispBrightness);
-	  while(1);
 	DISPOLED_init_for_temp();
-#if ((ACTIVE == USE_GPS) && (ACTIVE == USE_FAKE_GPS))
+#if ((ACTIVE == USE_GPS) || (ACTIVE == USE_FAKE_GPS))
 	GPS_init();
 #endif
 #if (ACTIVE == USE_RTC)
@@ -112,13 +111,12 @@ while(1)
 {
 	if (time_1sec_is_elapsed())
 	{
-		if ((FLAG_IS_SET == SecondsTimerONflag) && (SecondsTimerLeftReachedZeroFlag == FLAG_IS_RESET) && (ZERO_U != SecCounter_u8))
+		if ((FLAG_IS_SET == SecondsTimerONflag) && (FLAG_IS_RESET == SecondsTimerLeftReachedZeroFlag) && (ZERO_U != SecCounter_u8))
 		{
 			SecCounter_u8--;
 
 			if (ZERO_U == SecCounter_u8)
 			{
-
 				SecondsTimerLeftReachedZeroFlag = FLAG_IS_SET;
 				SecondsTimerONflag = FLAG_IS_RESET;
 			}
@@ -127,7 +125,7 @@ while(1)
 		DISP7SEGLED_display_gps_speed(&S_GPSstate);
 	}
 
-	if (time_4sec_is_elapsed())
+	if (time_4sec_is_elapsed()) //is not working !!!!!!!!!!!
 	{
 		if (FLAG_IS_SET == TimePeriodLeft_FLAG) //time left flag: about 4s
 		{
@@ -161,7 +159,7 @@ while(1)
 		{
 			if ((Temperature > 0) && (Humidity > 0))
 			{
-				DISPOLED_display_data_from_tempHumid_sensor(Temperature, Humidity);
+				DISPOLED_display_data_from_tempHumid_sensor(Humidity, Temperature);
 				DISP7SEGLED_display_dev_point(pProfilDefault, (uint8_t)DevPoint);
 				DISP7SEGLED_display_alarm_temp(pProfilDefault);
 				DISP7SEGLED_display_loHi_info(Humidity);
@@ -186,24 +184,25 @@ ISR(TIMER1_OVF_vect)
 	static uint8_t CountOfPeriods262ms_u8 = ZERO_U;
 
 	// next measurement period for DTHxx
+    #define PERIOD_FACTOR_FOR_1s 4U
 	#define PERIOD_FACTOR_FOR_2s 9U
     #define PERIOD_FACTOR_FOR_4s 18U
 
 	CountOfPeriods262ms_u8++;
 
-	if (ZERO_U == (CountOfPeriods262ms_u8 % 4U))
+	if (ZERO_U == (CountOfPeriods262ms_u8 % PERIOD_FACTOR_FOR_1s))
 	{
 		OneSecondLeftFLAG = FLAG_IS_SET;
 	}
 
-	if (PERIOD_FACTOR_FOR_4s == CountOfPeriods262ms_u8)
-		{
-			TimePeriodLeft_FLAG = FLAG_IS_SET;
-			CountOfPeriods262ms_u8 = 0;
-		}
+	if (ZERO_U == (CountOfPeriods262ms_u8 % PERIOD_FACTOR_FOR_4s))
+	{
+		TimePeriodLeft_FLAG = FLAG_IS_SET;
+		CountOfPeriods262ms_u8 = 0;
+	}
 
 	//check_taufpunkt();
-	//led_arduino_toggle();
+	//DIO_led_arduino_toggle();
 }
 
 ISR(USART_RX_vect)
@@ -411,7 +410,6 @@ static bool time_1sec_is_elapsed(void)
 {
 	if (FLAG_IS_SET == OneSecondLeftFLAG)
 	{
-		OneSecondLeftFLAG = FLAG_IS_RESET;
 		return true;
 	}
 	else
@@ -424,7 +422,6 @@ static bool time_4sec_is_elapsed(void)
 {
 	if (FLAG_IS_SET == TimePeriodLeft_FLAG)
 	{
-		TimePeriodLeft_FLAG = FLAG_IS_RESET;
 		return true;
 	}
 	else

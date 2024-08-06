@@ -8,6 +8,7 @@
 
 /* Private includes ---------------------------------------------------------------------------------------------------------------------------*/
 #include "tm1637.h"
+#include "../Main/config/config.h"
 
 /* Private defines ----------------------------------------------------------------------------------------------------------------------------*/
 #define TM1637_DP_CLOCK_MASK  0x80U
@@ -34,10 +35,10 @@
 
 /* Private consts -----------------------------------------------------------------------------------------------------------------------------*/
 /* display 7seg digit codes defined in ROM, order is: 0-9, empty, -, o, C, H, L */
-#if (USE_HW_PLATFORM_AVR == SET) 
+#if (ACTIVE == USE_HW_PLATFORM_AVR)
 	const uint8_t Digits[16] PROGMEM = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F, 0x00, 0x40, 0x63, 0x39,0b01110110, 0b00111000 };
 #endif
-#if (USE_HW_PLATFORM_STM32 == SET)
+#if (ACTIVE == USE_HW_PLATFORM_STM32)
 	const uint8_t Digits[16] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F, 0x00, 0x40, 0x63, 0x39,0b01110110, 0b00111000 };
 #endif
 
@@ -113,7 +114,8 @@ static void TM1637_transmit_byte(uint8_t byte)
         PERIPHERALS_delay_us(1);
     }
     //check ACK:
-    DIO_set_tm1637_clk_low();       
+    DIO_set_tm1637_clk_low();
+    PERIPHERALS_delay_us(1);
 	DIO_set_tm1637_dout_low();
 	PERIPHERALS_delay_us(1);
     DIO_set_tm1637_clk_high();

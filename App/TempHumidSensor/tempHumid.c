@@ -55,5 +55,5 @@ float TEMPHUMID_calculate_dewPoint_value(float temperature, float humidity)
 
 void TEMPHUMIDSENSOR_get_measurements(sDTH* pSensorData)
 {
-	DHT11_read_temp_and_humidity(pSensorData);
+	temp_measure(pSensorData);
 }

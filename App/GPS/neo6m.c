@@ -7,6 +7,7 @@
 
 /* Private includes ---------------------------------------------------------------------------------------------------------------------------*/
 #include "neo6m.h"
+#include <string.h>
 
 /* Private defines ----------------------------------------------------------------------------------------------------------------------------*/ 
 /* Private types ------------------------------------------------------------------------------------------------------------------------------*/ 
@@ -100,6 +101,7 @@ void NEO6M_process_line(void) {
 
 void NEO6M_process_gprmc(void)
 {
+	/*
 	//$GPRMC,212846.00,A,5025.81511,N,01639.92090,E,0.196,,140417,,,A*73
 
 
@@ -177,6 +179,7 @@ void NEO6M_process_gprmc(void)
 	}
 
 #endif
+*/
 }
 
 void NEO6M_process_gpvtg(void)
@@ -198,6 +201,7 @@ void NEO6M_process_gpvtg(void)
 
 void NEO6M_process_gpgga(void)
 {
+	 /*
 	float speed_knot = 0;
 	uint8_t temp_integral[10] = {0};
 	uint8_t temp_decimal[10] = {0};
@@ -256,11 +260,12 @@ void NEO6M_process_gpgga(void)
 	NEO6M_read_field();
 	if(strlen((uint8_t*)&S_GPSstate.field_buffer)) > 0) sscanf((uint8_t*)&S_GPSstate.field_buffer), "%lf", &(state->altitude));
 #endif
+*/
 }
 
 void NEO6M_process_gpgsa(void)
 {
-
+/*
 #if (1 ==  USE_FAKE_GPS)
 	NEO6M_read_field();
 	NEO6M_read_field();
@@ -309,5 +314,5 @@ void NEO6M_process_gpgsa(void)
 	NEO6M_read_field();
 	if(strlen(state->field_buffer) > 0) sscanf(state->field_buffer, "%lf", &(state->vdop));
 #endif
-
+*/
 }

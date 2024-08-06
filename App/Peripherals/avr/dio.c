@@ -116,14 +116,6 @@ static void DIO_buzzer_init(void)
 	DDRC |= (1<<PC1);
 }
 
-void DIO_buzzer_BEEP(void)
-{
-	DIO_buzzer_on();
-	PERIPHERALS_delay_ms(100);
-	DIO_buzzer_off();
-}
-
-
 void DIO_buzzer_off(void)
 {
 	PORTC |= (1<<PC1);
@@ -132,6 +124,13 @@ void DIO_buzzer_off(void)
 void DIO_buzzer_on(void)
 {
 	PORTC &= ~(1<<PC1);
+}
+
+void DIO_buzzer_BEEP(void)
+{
+	DIO_buzzer_on();
+	PERIPHERALS_delay_ms(100);
+	DIO_buzzer_off();
 }
 
 static void DIO_led_orange_init(void)
@@ -207,9 +206,10 @@ void DIO_board_init(void)
 #endif
 }
 
+/* TempRH sensor */
 void DIO_dht_setPIN_low(void)
 {
-	DHT_DIRREG  |= (1<<DHT_PIN); 	// pin jest wyj�ciem
+	DHT_DIRREG |= (1<<DHT_PIN); 	// pin jest wyj�ciem
 	DHT_PORT &= ~ (1<<DHT_PIN);		// ustawia 0
 }
 
@@ -229,6 +229,7 @@ uint8_t DIO_check_if_dht_PIN_is_high(void)
 	return (DHT_PINREG & (1<<DHT_PIN));
 }
 
+/* LED display */
 void DIO_set_tm1637_clk_low(void)
 {
 	TM1637_PORT_CLK &= ~(1<<TM1637_CLK_PIN);
@@ -249,6 +250,7 @@ void DIO_set_tm1637_dout_high(void)
 	TM1637_PORT_DATA |= (1<<TM1637_DATA_PIN);
 }
 
+/* OLED display */
 void DIO_twi_write_byte(uint8_t Slave_Addr, uint8_t reg_adr, uint8_t data)
 {
 	TWI_write_byte(Slave_Addr, reg_adr, data);
